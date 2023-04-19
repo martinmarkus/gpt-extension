@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "GPT Extension - (ChatGPT, GPT-3, GPT-4)",
+    "permissions": [ "activeTab", "storage", "scripting" ],
+    "update_url": "https://clients2.google.com/service/update2/crx",
+    "version": "1.0.0",
+    "web_accessible_resources": [
+        {
+            "resources": [ "scripts/*", "styles/*", "icons/*", "templates/*" ],
+            "matches": [ "http://*/*", "https://*/*" ]
+        }
+    ],
+    "action": {
+       "default_icon": {
+       },
+       "default_popup": "index.html"
+    },
+    "description": "test description",
+    "host_permissions": [ "https://*/" ],
+    "icons": {
+    }
+ }
+ 
