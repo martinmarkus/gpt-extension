@@ -30,7 +30,6 @@
               "src/assets",
               "src/manifest.json",
               "src/content.js"
-
             ],
             "styles": [
               "src/assets/styles.scss",

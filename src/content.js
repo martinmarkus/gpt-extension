@@ -1,7 +1,0 @@
-
-initOverlayComponent();
-
-
-export function initOverlayComponent() {
-
-}

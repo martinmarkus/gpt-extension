@@ -1,9 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize, take, takeUntil } from 'rxjs';
 import { AuthenticationClient, LoginRequestDTO } from 'src/app/core/api/gpt-server.generated';
 import { LoadingSpinnerService } from 'src/app/core/loading-spinner/loading-spinner.service';
 import { subscriptionHolder } from 'src/app/core/utils/subscription-holder';
+
+declare const chrome: any;
 
 @Component({
   selector: 'app-login',
@@ -18,13 +20,22 @@ export class LoginComponent extends subscriptionHolder() implements OnInit, OnDe
 
 
   constructor(
+    private readonly ngZone: NgZone,
     private readonly authClient: AuthenticationClient,
     private readonly spinner: LoadingSpinnerService) {
     super();
   }
 
   ngOnInit(): void {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
+      debugger;
+      const currentTab = tabs[0];
+      console.log(currentTab);
 
+      chrome.tabs.executeScript(currentTab.id, {
+        code: `console.log(document.title);`
+      });
+    });
   }
 
   login(): void {
