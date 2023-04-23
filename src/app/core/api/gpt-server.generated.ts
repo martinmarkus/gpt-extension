@@ -183,6 +183,54 @@ export class AuthenticationClient {
         }
         return _observableOf(null as any);
     }
+
+    getUser(): Observable<UserResponseDTO> {
+        let url_ = this.baseUrl + "/Authentication/GetUser";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUser(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUser(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<UserResponseDTO>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<UserResponseDTO>;
+        }));
+    }
+
+    protected processGetUser(response: HttpResponseBase): Observable<UserResponseDTO> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = UserResponseDTO.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
 }
 
 @Injectable({
@@ -627,6 +675,49 @@ export class ConfirmCustomerRequestDTO implements IConfirmCustomerRequestDTO {
 
 export interface IConfirmCustomerRequestDTO {
     email: string;
+}
+
+export class UserResponseDTO extends BaseResponseDTO implements IUserResponseDTO {
+    email!: string;
+    apiKeysResponseDTO!: ApiKeysResponseDTO;
+
+    constructor(data?: IUserResponseDTO) {
+        super(data);
+        if (data) {
+            this.apiKeysResponseDTO = data.apiKeysResponseDTO && !(<any>data.apiKeysResponseDTO).toJSON ? new ApiKeysResponseDTO(data.apiKeysResponseDTO) : <ApiKeysResponseDTO>this.apiKeysResponseDTO;
+        }
+        if (!data) {
+            this.apiKeysResponseDTO = new ApiKeysResponseDTO();
+        }
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.email = _data["email"];
+            this.apiKeysResponseDTO = _data["apiKeysResponseDTO"] ? ApiKeysResponseDTO.fromJS(_data["apiKeysResponseDTO"]) : new ApiKeysResponseDTO();
+        }
+    }
+
+    static override fromJS(data: any): UserResponseDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserResponseDTO();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["email"] = this.email;
+        data["apiKeysResponseDTO"] = this.apiKeysResponseDTO ? this.apiKeysResponseDTO.toJSON() : <any>undefined;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IUserResponseDTO extends IBaseResponseDTO {
+    email: string;
+    apiKeysResponseDTO: IApiKeysResponseDTO;
 }
 
 export class ApiKeysResponseDTO extends BaseResponseDTO implements IApiKeysResponseDTO {

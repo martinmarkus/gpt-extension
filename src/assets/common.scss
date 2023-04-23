@@ -5,13 +5,15 @@
 $fontColor: #383838;
 $fontColorLight: #e2e2e2;
 $placeholderColor: #636363;
-$backgroundColor: #f3f4f6;
+$backgroundColor: #f1f2f3;
+$inputBackgroundColor: #e6efff;
 $inputFocusBackgroundColor: #ffffc8;
 
 $borderColor: #535353;
 $activeBorderColor: #257bdf;
 $buttonColor: #257bdf;
 $buttonHoverColor: #3889e6;
+$errorRed: #f83737;
 
 /*
   Mixins
@@ -30,24 +32,41 @@ $buttonHoverColor: #3889e6;
   Common style
 */
 input {
-  background: #fff;
   color: $placeholderColor;
-  padding: 8px 0;
-  border: 1px solid $borderColor;
+  background: $inputBackgroundColor!important;
+  padding: 8px;
+  padding-left: 12px;
 
   border-radius: 6px;
   height: 15px;
 
+  width: calc(100% + 12px)!important;
+
+  transform: translateX(-16px);
+
   &:focus {
+    background: $inputFocusBackgroundColor;
     color: $fontColor;
-    border: 1px solid $activeBorderColor;
     outline: none;
   }
 }
 
-.mdc-text-field--focused {
-  background: $inputFocusBackgroundColor;
+.input--error {
+  color: $errorRed!important;
 }
+
+.mdc-text-field--outlined {
+  overflow: hidden!important;
+}
+
+.mdc-text-field--outlined {
+  padding: 0!important;
+}
+
+.mdc-text-field {
+  padding: 0!important;
+}
+
 
 label {
   font-size: 12px;
@@ -91,10 +110,18 @@ label {
   }
 }
 
-// .mdc-text-field {
-//   padding: 0!important;
-// }
+.link {
+  color: $placeholderColor;
+  font-size: 11px;
+}
 
-// .mat-mdc-form-field-infix input {
-//   width: 40px!important;
-// }
+.error {
+  font-size: 12px;
+  color: $errorRed;
+
+  transform: translateY(-20px);
+}
+
+.mat-mdc-form-field-subscript-wrapper .mat-mdc-form-field-bottom-align {
+
+}

@@ -21,12 +21,12 @@
         type="text"
         class="input"
         placeholder="user@example.com" />
-      <mat-error *ngIf="formGroup.controls.email.hasError('invalid')">
-        <div class="error">
-          Az E-mail cím megadása kötelező.
-        </div>
-      </mat-error>
     </mat-form-field>
+    <div class="error">
+      <span *ngIf="formGroup.controls.email.hasError('invalid')">
+        Az E-mail cím megadása kötelező.
+      </span>
+    </div>
   </div>
 
   <div class="login__form__field login__form__password">
@@ -40,16 +40,22 @@
         autocomplete="off"
         id="password"
         name="password"
-        type="text"
+        type="password"
         class="input"
-        placeholder="●●●●●" />
-      <mat-error *ngIf="formGroup.controls.password.hasError('invalid')">
-        <div class="error">
-          A jelszó megadása kötelező.
-        </div>
-      </mat-error>
+        placeholder="●●●●●"
+        [class.input--error]="formGroup.controls.password.hasError('invalid')" />
     </mat-form-field>
+    <div class="error">
+      <span *ngIf="formGroup.controls.password.hasError('invalid')">
+        Az jelszó megadása kötelező.
+      </span>
+    </div>
   </div>
 
-  <div class="button" (click)="login()">Bejelentkezés</div>
+  <div class="button-container">
+    <div class="button" (click)="login()">Bejelentkezés</div>
+    <div class="link-container">
+      <a class="link" href="https://google.com" target="_blank">Regisztráció</a>
+    </div>
+  </div>
 </form>

@@ -1,13 +1,14 @@
 {
-  "name": "Great Extension",
+  "name": "ChatGPT Extension",
   "version": "1.0",
-  "description": "Build an Extension with Angular",
+  "description": "Extension for fast ChatGPT communication.",
   "manifest_version": 3,
   "action": {
     "default_popup": "index.html"
   },
   "permissions": [
     "tabs",
-    "activeTab"
+    "activeTab",
+    "storage"
   ]
 }

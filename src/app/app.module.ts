@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ExtensionHttpInterceptor } from './core/interceptors/http-interceptor';
-import { API_BASE_URL } from './core/api/gpt-server.generated';
+import { API_BASE_URL, AuthenticationClient } from './core/api/gpt-server.generated';
 import { environment } from 'src/environments/environment';
 import { initApp } from './core/init/app-initializer';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -45,6 +45,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       multi: true,
       useFactory: initApp,
       deps: [
+        AuthenticationClient,
         Router,
       ],
     },

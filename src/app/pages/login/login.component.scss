@@ -13,7 +13,6 @@
 .login__form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 
   border-radius: 6px;
   background: #fff;
@@ -25,3 +24,18 @@
     flex-direction: column;
   }
 }
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+
+  .link-container {
+    margin-top: 8px;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+
