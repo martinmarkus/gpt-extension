@@ -1,0 +1,27 @@
+@import "/src/assets/common.scss";
+
+.header {
+  width: 100%;
+  height: 50px;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  border-radius: 6px;
+  background: #fff;
+  padding: 16px 12px;
+
+  .login__form__field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}

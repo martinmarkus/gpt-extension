@@ -1,0 +1,100 @@
+
+/*
+  Variables
+*/
+$fontColor: #383838;
+$fontColorLight: #e2e2e2;
+$placeholderColor: #636363;
+$backgroundColor: #f3f4f6;
+$inputFocusBackgroundColor: #ffffc8;
+
+$borderColor: #535353;
+$activeBorderColor: #257bdf;
+$buttonColor: #257bdf;
+$buttonHoverColor: #3889e6;
+
+/*
+  Mixins
+*/
+@mixin disable-select {
+  user-select: none; /* supported by Chrome and Opera */
+ -webkit-user-select: none; /* Safari */
+ -khtml-user-select: none; /* Konqueror HTML */
+ -moz-user-select: none; /* Firefox */
+ -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+
+
+/*
+  Common style
+*/
+input {
+  background: #fff;
+  color: $placeholderColor;
+  padding: 8px 0;
+  border: 1px solid $borderColor;
+
+  border-radius: 6px;
+  height: 15px;
+
+  &:focus {
+    color: $fontColor;
+    border: 1px solid $activeBorderColor;
+    outline: none;
+  }
+}
+
+.mdc-text-field--focused {
+  background: $inputFocusBackgroundColor;
+}
+
+label {
+  font-size: 12px;
+  color: $placeholderColor;
+}
+
+
+.close-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    fill: $placeholderColor;
+  }
+}
+
+
+.button {
+  @include disable-select;
+
+  border-radius: 6px;
+  background: $buttonColor;
+  color: $fontColorLight;
+  text-transform: uppercase;
+  font-size: 16px;
+  height: 20px;
+  outline: none;
+  border: none;
+  transition: all 0.2s;
+  font-weight: 500;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    background: $buttonHoverColor;
+  }
+}
+
+// .mdc-text-field {
+//   padding: 0!important;
+// }
+
+// .mat-mdc-form-field-infix input {
+//   width: 40px!important;
+// }

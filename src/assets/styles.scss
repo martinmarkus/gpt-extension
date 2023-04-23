@@ -1,0 +1,17 @@
+@import "/src/assets/fonts/poppins.scss";
+@import "/src/assets/common.scss";
+
+body {
+  margin: 0;
+  padding: 14px;
+
+  background: $backgroundColor;
+  color: $fontColor;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+
+  width: auto;
+  max-width: 500px;
+  min-height: 200px;
+}
