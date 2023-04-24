@@ -41,7 +41,10 @@ export class LoginComponent extends subscriptionHolder() implements OnInit, OnDe
     //   });
     // });
 
-    console.log('init');
+
+    document.getElementById('#login-button')?.addEventListener('click', () => {
+      this.login();
+    });
 
     this.initChromeState();
 

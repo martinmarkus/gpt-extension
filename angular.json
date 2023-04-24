@@ -29,13 +29,14 @@
               "src/favicon.ico",
               "src/assets",
               "src/manifest.json",
-              "src/content.js"
+              "src/doc-ext",
+              "src/doc-ext/scripts",
+              "src/doc-ext/templates",
+              "src/doc-ext/styles"
             ],
             "styles": [
               "src/assets/styles.scss",
               "src/assets/common.scss"
-            ],
-            "scripts": [
             ]
           },
           "configurations": {
@@ -52,6 +53,14 @@
                   "maximumError": "4kb"
                 }
               ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              },
               "outputHashing": "all"
             },
             "development": {

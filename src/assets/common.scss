@@ -40,10 +40,6 @@ input {
   border-radius: 6px;
   height: 15px;
 
-  width: calc(100% + 12px)!important;
-
-  transform: translateX(-16px);
-
   &:focus {
     background: $inputFocusBackgroundColor;
     color: $fontColor;
@@ -66,7 +62,6 @@ input {
 .mdc-text-field {
   padding: 0!important;
 }
-
 
 label {
   font-size: 12px;
@@ -120,8 +115,4 @@ label {
   color: $errorRed;
 
   transform: translateY(-20px);
-}
-
-.mat-mdc-form-field-subscript-wrapper .mat-mdc-form-field-bottom-align {
-
 }

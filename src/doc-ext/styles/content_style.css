@@ -1,0 +1,15 @@
+.body-A8A662C82DA3 {
+  width: 200px;
+  height: 200px;
+  z-index: 1000;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 30%;
+  margin: auto;
+  margin: auto;
+
+
+  background-color: pink;
+}

@@ -2,7 +2,7 @@
   <div>
     Bejelentkezés
   </div>
-  <svg-icon svgClass="close-button" [applyClass]="true" src="/assets/icons/close-outline.svg" [svgStyle]="{ 'width.px': 28 }" (click)="close()"></svg-icon>
+  <svg-icon svgClass="close-button" [applyClass]="true" src="/assets/icons/close-outline.svg" [svgStyle]="{ 'width.px': 28 }"></svg-icon>
 </div>
 
 <form [formGroup]="formGroup" class="login__form">
@@ -53,7 +53,7 @@
   </div>
 
   <div class="button-container">
-    <div class="button" (click)="login()">Bejelentkezés</div>
+    <div id="login-button" class="button">Bejelentkezés</div>
     <div class="link-container">
       <a class="link" href="https://google.com" target="_blank">Regisztráció</a>
     </div>

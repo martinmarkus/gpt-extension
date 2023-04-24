@@ -9,6 +9,21 @@
   "permissions": [
     "tabs",
     "activeTab",
-    "storage"
-  ]
+    "storage",
+    "scripting"
+  ],
+  "web_accessible_resources": [{
+    "matches": [ "http://*/*", "https://*/*" ],
+    "resources": [
+      "doc-ext/scripts/content_script.js",
+      "doc-ext/templates/content_template.html",
+      "doc-ext/styles/content_style.css"
+    ]
+  }],
+  "content_scripts": [{
+    "js":  [ "doc-ext/scripts/content_script.js" ],
+    "css": [ "doc-ext/styles/content_style.css"],
+    "matches": [ "http://*/*", "https://*/*" ],
+    "run_at": "document_end"
+ }]
 }
