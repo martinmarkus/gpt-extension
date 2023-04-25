@@ -27,19 +27,23 @@
       Még nem adtál hozzá GPT API kulcsot.
     </ng-container>
     <ng-template #apiKeyList>
-      <div *ngFor="let key of apiKeys" class="api-key">
-        <div class="api-key__values">
-          <div class="api-key__values__name">
-            {{ key.keyName }}
+      <div *ngFor="let key of apiKeys; let i = index" class="api-key">
+        <div class="api-key__container">
+          <div class="api-key__values">
+            <div class="api-key__values__name">
+              {{ key.keyName }}
+            </div>
+            <div class="api-key__values__key">
+              {{ key.key }}
+            </div>
           </div>
-          <div class="api-key__values__key">
-            {{ key.key }}
+          <div class="api-key__buttons">
+            <svg-icon svgClass="svg-button" [applyClass]="true" src="/assets/icons/edit-2-outline.svg" [svgStyle]="{ 'width.px': 18 }" (click)="onEdit(key.key)"></svg-icon>
+            <svg-icon svgClass="svg-button trash-button" [applyClass]="true" src="/assets/icons/archive-outline.svg" [svgStyle]="{ 'width.px': 18 }" (click)="onDeleteConfirm(key.keyName, key.key)"></svg-icon>
           </div>
         </div>
-        <div class="api-key__buttons">
-          <svg-icon svgClass="svg-button" [applyClass]="true" src="/assets/icons/edit-2-outline.svg" [svgStyle]="{ 'width.px': 18 }" (click)="onEdit(key.key)"></svg-icon>
-          <svg-icon svgClass="svg-button trash-button" [applyClass]="true" src="/assets/icons/archive-outline.svg" [svgStyle]="{ 'width.px': 18 }" (click)="onDeleteConfirm(key.keyName, key.key)"></svg-icon>
-        </div>
+
+        <div *ngIf="i !== apiKeys.length - 1" class="separator"></div>
       </div>
     </ng-template>
 
