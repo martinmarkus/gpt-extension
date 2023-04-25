@@ -1,0 +1,16 @@
+<div class="main-container">
+
+  <div class="header">
+    <div>
+      {{ model.question }}
+    </div>
+    <div class="svg-container">
+      <svg-icon svgClass="svg-button" [applyClass]="true" src="/assets/icons/close-outline.svg" [svgStyle]="{ 'width.px': 24 }" (click)="close()"></svg-icon>
+    </div>
+  </div>
+
+  <div class="content">
+    <button class="button" (click)="confirm()">{{model.confirmText}}</button>
+    <button class="button button--secondary" (click)="cancel()">{{model.cancelText}}</button>
+  </div>
+</div>

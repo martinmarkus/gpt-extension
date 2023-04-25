@@ -2,17 +2,20 @@
 /*
   Variables
 */
-$fontColor: #383838;
-$fontColorLight: #e2e2e2;
-$placeholderColor: #636363;
+$fontColor: #666666;
+$secondaryFontColor: #999999;
+$fontColorLight: #f7f7f7;
+$placeholderColor: #727272;
+$svgHoverColor: #19D3F1;
 $backgroundColor: #f1f2f3;
 $inputBackgroundColor: #e6efff;
 $inputFocusBackgroundColor: #ffffc8;
 
-$borderColor: #535353;
-$activeBorderColor: #257bdf;
-$buttonColor: #257bdf;
-$buttonHoverColor: #3889e6;
+$borderColor: #c7c7c7;
+$activeBorderColor: #19D3F1;
+$buttonColor: #19D3F1;
+$buttonSecondaryColor: #aaaaaa;
+$buttonHoverColor: #347dd1;
 $errorRed: #f83737;
 
 /*
@@ -69,15 +72,20 @@ label {
 }
 
 
-.close-button {
+.svg-button {
   display: flex;
   align-items: center;
   cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
-    fill: $placeholderColor;
+    fill: $svgHoverColor;
   }
+}
+
+.svg-button--no-hover {
+  display: flex;
+  align-items: center;
 }
 
 
@@ -89,7 +97,7 @@ label {
   color: $fontColorLight;
   text-transform: uppercase;
   font-size: 16px;
-  height: 20px;
+  height: 45px;
   outline: none;
   border: none;
   transition: all 0.2s;
@@ -105,6 +113,36 @@ label {
   }
 }
 
+.button--secondary {
+  background: $buttonSecondaryColor;
+}
+
+
+.button--small {
+  @include disable-select;
+
+  border-radius: 6px;
+  background: $buttonColor;
+  color: $fontColorLight;
+  text-transform: uppercase;
+  font-size: 14px;
+  height: 28px;
+  outline: none;
+  border: none;
+  transition: all 0.2s;
+  font-weight: 500;
+  padding: 6px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    background: $buttonHoverColor;
+  }
+}
+
+
 .link {
   color: $placeholderColor;
   font-size: 11px;
@@ -115,4 +153,52 @@ label {
   color: $errorRed;
 
   transform: translateY(-20px);
+}
+
+.content-box {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+  border-radius: 6px;
+  background: #fff;
+  padding: 8px 12px 16px 12px;
+
+  .content-box__header {
+    font-size: 16px;
+    color: $fontColor;
+    margin-bottom: 12px;
+  }
+
+}
+
+
+
+mat-dialog-container {
+  position: fixed!important;
+  top: 0!important;
+  left: 0!important;
+  width: 100%!important;
+  height: 100%!important;
+  max-height: 100%!important;
+  max-width: 100%!important;
+
+  background: #52525233!important;
+
+  .mdc-dialog__container {
+    .mat-mdc-dialog-surface {
+      min-width: 200px!important;
+      min-height: 150px!important;
+
+      max-width: 280px!important;
+      max-height: 1000px!important;
+
+      height: fit-content!important;
+      width: fit-content!important;
+
+      padding: 12px;
+
+      background: #fff!important;
+    }
+  }
 }

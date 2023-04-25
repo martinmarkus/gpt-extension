@@ -13,6 +13,8 @@ import { environment } from 'src/environments/environment';
 import { initApp } from './core/init/app-initializer';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmPopupComponent } from './shared/confirm-popup/confirm-popup.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    MatDialogModule,
     AngularSvgIconModule.forRoot()
   ],
   bootstrap: [AppComponent],

@@ -14,4 +14,12 @@ body {
   min-width: 300px;
   max-width: 500px;
   min-height: 200px;
+
+  svg {
+    fill: $fontColor;
+    &:hover {
+
+      fill: $placeholderColor;
+    }
+  }
 }

@@ -1,12 +1,19 @@
 <div class="header">
-  <div>
-    Bejelentkezés
+  <div class="header__content">
+    <span></span>
+    <div class="logo-container">
+      <img src="../../../assets/images/logo.png" height="84" />
+    </div>
+    <span class="close-button-container">
+      <svg-icon svgClass="svg-button" [applyClass]="true" src="/assets/icons/close-outline.svg" [svgStyle]="{ 'width.px': 24 }" (click)="close()"></svg-icon>
+    </span>
   </div>
-  <svg-icon svgClass="close-button" [applyClass]="true" src="/assets/icons/close-outline.svg" [svgStyle]="{ 'width.px': 28 }"></svg-icon>
 </div>
 
 <form [formGroup]="formGroup" class="login__form">
-
+  <span class="login__form__header">
+    Bejelentkezés
+  </span>
   <div class="login__form__field login__form__email">
     <label for="email">
       E-mail cím
@@ -53,9 +60,9 @@
   </div>
 
   <div class="button-container">
-    <div id="login-button" class="button">Bejelentkezés</div>
+    <button id="login-button" class="button" (click)="login()">Bejelentkezés</button>
     <div class="link-container">
-      <a class="link" href="https://google.com" target="_blank">Regisztráció</a>
+      <a class="link" [href]="registerUrl" target="_blank">Regisztráció</a>
     </div>
   </div>
 </form>

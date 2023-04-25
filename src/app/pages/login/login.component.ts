@@ -3,9 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize, take, takeUntil } from 'rxjs';
 import { AuthenticationClient, LoginRequestDTO } from 'src/app/core/api/gpt-server.generated';
-import { setAuthToken } from 'src/app/core/auth-token-container';
-import { ApiKey } from 'src/app/core/chrome/api-key.interface';
 import { AppState } from 'src/app/core/chrome/app-state.interface';
+import { ChromeStorageService } from 'src/app/core/chrome/chrome-storage-service';
+import { ExternalUrlConstants } from 'src/app/core/constants/external-url-constants';
 import { LoadingSpinnerService } from 'src/app/core/loading-spinner/loading-spinner.service';
 import { subscriptionHolder } from 'src/app/core/utils/subscription-holder';
 
@@ -22,7 +22,11 @@ export class LoginComponent extends subscriptionHolder() implements OnInit, OnDe
     password: new FormControl('', [Validators.required]),
   });
 
+  registerUrl = ExternalUrlConstants.AiChatMaster;
+
+
   constructor(
+    private readonly appStateService: ChromeStorageService,
     private readonly router: Router,
     private readonly ngZone: NgZone,
     private readonly authClient: AuthenticationClient,
@@ -31,23 +35,6 @@ export class LoginComponent extends subscriptionHolder() implements OnInit, OnDe
   }
 
   ngOnInit(): void {
-    // chrome.tabs.query({ active: true, currentWindow: true }, (tabs: any) => {
-    //   debugger;
-    //   const currentTab = tabs[0];
-    //   console.log(currentTab);
-
-    //   chrome.tabs.executeScript(currentTab.id, {
-    //     code: `console.log(document.title);`
-    //   });
-    // });
-
-
-    document.getElementById('#login-button')?.addEventListener('click', () => {
-      this.login();
-    });
-
-    this.initChromeState();
-
     this.formGroup.controls.email.valueChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe(val => {
@@ -63,32 +50,6 @@ export class LoginComponent extends subscriptionHolder() implements OnInit, OnDe
           this.formGroup.controls.password.setErrors({'invalid': true});
         }
       });
-  }
-
-  async initChromeState(): Promise<void> {
-    const response = await this.authClient.getUser()
-        .pipe(take(1))
-        .toPromise();
-
-    chrome.storage.sync.get("appState", (item: AppState) => {
-
-      setAuthToken(item?.authToken ?? '');
-
-      chrome.storage.sync.set({ "appState": {
-        email: response?.email,
-        authToken: item?.authToken,
-        apiKeys: response?.apiKeysResponseDTO.keys.map(x => {
-            return {
-              key: x.key ?? '',
-              keyName: x?.keyName ?? '',
-              isActive: x?.isActive?? false
-            } as ApiKey;
-          }
-        ),
-       } as AppState }, () => {
-        this.router.navigate(['/settings']);
-       });
-    });
   }
 
   login(): void {
@@ -119,22 +80,22 @@ export class LoginComponent extends subscriptionHolder() implements OnInit, OnDe
         this.spinner.hide();
       }))
       .subscribe(response => {
+        // INFO: Set app state
+        let appState = this.appStateService.getAppState();
 
-        chrome.storage.sync.set({ "appState": {
-            email: this.formGroup.controls.email.value?.toString() ?? '',
-            authToken: response?.authToken,
-            apiKeys: []
-          }},
-          function(){});
+        if (!appState) {
+          appState = {
+            authToken: response?.authToken ?? '',
+            apiKeys: [],
+            email: this.formGroup.controls.email.value?.toString() ?? ''
+          } as AppState;
+        }
 
-          setAuthToken(response?.authToken ?? '');
+        this.appStateService.setAppState(appState)
 
+        // INFO: navigate to settings
         this.router.navigate(['settings']);
       });
-
-
-      const doc = document.getElementById('center');
-      (doc as HTMLElement).style.display = 'none';
   }
 
   close(): void {

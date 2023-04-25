@@ -1,0 +1,27 @@
+@import "/src/assets/common.scss";
+
+.main-container {
+
+  .header {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 10fr 2fr;
+
+    .svg-container {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+  }
+
+
+  .content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 32px;
+  }
+}

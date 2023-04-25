@@ -1,1 +1,53 @@
-<p>settings works!</p>
+  <div class="header">
+  <div class="header__content">
+    <div class="logo-container">
+      <img src="../../../assets/images/robot.png" height="36" />
+    </div>
+    <div>
+      Beállítások
+    </div>
+    <span class="close-button-container">
+      <svg-icon svgClass="svg-button" [applyClass]="true" src="/assets/icons/close-outline.svg" [svgStyle]="{ 'width.px': 24 }" (click)="close()"></svg-icon>
+    </span>
+  </div>
+</div>
+
+
+<div class="main-content">
+
+  <div class="content-box">
+
+    <div class="content-box__header">
+      <div>
+        GPT Api kulcsok
+      </div>
+    </div>
+
+    <ng-container *ngIf="!apiKeys || apiKeys.length === 0; else apiKeyList">
+      Még nem adtál hozzá GPT API kulcsot.
+    </ng-container>
+    <ng-template #apiKeyList>
+      <div *ngFor="let key of apiKeys" class="api-key">
+        <div class="api-key__values">
+          <div class="api-key__values__name">
+            {{ key.keyName }}
+          </div>
+          <div class="api-key__values__key">
+            {{ key.key }}
+          </div>
+        </div>
+        <div class="api-key__buttons">
+          <svg-icon svgClass="svg-button" [applyClass]="true" src="/assets/icons/edit-2-outline.svg" [svgStyle]="{ 'width.px': 18 }" (click)="onEdit(key.key)"></svg-icon>
+          <svg-icon svgClass="svg-button trash-button" [applyClass]="true" src="/assets/icons/archive-outline.svg" [svgStyle]="{ 'width.px': 18 }" (click)="onDeleteConfirm(key.keyName, key.key)"></svg-icon>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="button-container">
+      <button class="button">
+        <svg-icon svgClass="svg-button plus-button" [applyClass]="true" src="/assets/icons/plus-outline.svg" [svgStyle]="{ 'width.px': 22 }"></svg-icon>
+        API kulcs hozzáadása
+      </button>
+    </div>
+  </div>
+</div>
