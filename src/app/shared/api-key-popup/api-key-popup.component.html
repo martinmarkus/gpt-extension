@@ -1,0 +1,51 @@
+
+<div class="header">
+  GPI API kulcs hozzáadása
+</div>
+
+<form class="api__form">
+  <div class="api__form__field">
+    <label for="name">
+      API kulcs név
+    </label>
+    <input
+      matInput
+      [formControlName]="'name'"
+      autocomplete="off"
+      id="name"
+      name="name"
+      type="text"
+      class="input"
+      placeholder="Tetszőleges név" />
+    <div class="error">
+      <span *ngIf="formGroup.controls.name.hasError('invalid')">
+        Az API kulcs nevének megadása kötelező.
+      </span>
+    </div>
+  </div>
+
+  <div class="api__form__field">
+    <label for="password">
+      API kulcs érték
+    </label>
+    <input
+      matInput
+      [formControlName]="'key'"
+      autocomplete="off"
+      id="key"
+      name="key"
+      type="text"
+      class="input"
+      [class.input--error]="formGroup.controls.key.hasError('invalid')"
+      placeholder="GPI API Kulcs" />
+    <div class="error">
+      <span *ngIf="formGroup.controls.key.hasError('invalid')">
+        Az API kulcs megadása kötelező.
+      </span>
+    </div>
+  </div>
+</form>
+<div class="button-container">
+  <button class="button button--secondary" (click)="cancel()">Mégsem</button>
+  <button class="button" (click)="save()">Mentés</button>
+</div>

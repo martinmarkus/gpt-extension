@@ -38,7 +38,7 @@
             </div>
           </div>
           <div class="api-key__buttons">
-            <svg-icon svgClass="svg-button" [applyClass]="true" src="/assets/icons/edit-2-outline.svg" [svgStyle]="{ 'width.px': 18 }" (click)="onEdit(key.key)"></svg-icon>
+            <svg-icon svgClass="svg-button" [applyClass]="true" src="/assets/icons/edit-2-outline.svg" [svgStyle]="{ 'width.px': 18 }" (click)="onEdit(key.key, key.keyName)"></svg-icon>
             <svg-icon svgClass="svg-button trash-button" [applyClass]="true" src="/assets/icons/archive-outline.svg" [svgStyle]="{ 'width.px': 18 }" (click)="onDeleteConfirm(key.keyName, key.key)"></svg-icon>
           </div>
         </div>
@@ -48,7 +48,7 @@
     </ng-template>
 
     <div class="button-container">
-      <button class="button">
+      <button class="button" (click)="onEdit()">
         <svg-icon svgClass="svg-button plus-button" [applyClass]="true" src="/assets/icons/plus-outline.svg" [svgStyle]="{ 'width.px': 22 }"></svg-icon>
         API kulcs hozzáadása
       </button>

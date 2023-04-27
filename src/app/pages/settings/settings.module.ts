@@ -8,10 +8,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ModalModule } from 'src/app/core/modal/modal.module';
 import { ConfirmPopupModule } from 'src/app/shared/confirm-popup/confirm-popup.module';
+import { ApiKeyPopupModule } from 'src/app/shared/api-key-popup/api-key-popup.module';
+import { ApiKeyPopupComponent } from 'src/app/shared/api-key-popup/api-key-popup.component';
 
 @NgModule({
   declarations: [
-    SettingsComponent
+    SettingsComponent,
+    ApiKeyPopupComponent
   ],
   imports: [
     SettingsRoutingModule,
@@ -23,6 +26,7 @@ import { ConfirmPopupModule } from 'src/app/shared/confirm-popup/confirm-popup.m
     MatInputModule,
     ModalModule,
     ConfirmPopupModule,
+    ApiKeyPopupModule
   ],
   providers: [],
 })
