@@ -10,7 +10,7 @@
     </label>
     <input
       matInput
-      [formControlName]="'name'"
+      [(ngModel)]="name"
       autocomplete="off"
       id="name"
       name="name"
@@ -18,7 +18,7 @@
       class="input"
       placeholder="Tetszőleges név" />
     <div class="error">
-      <span *ngIf="formGroup.controls.name.hasError('invalid')">
+      <span *ngIf="!name">
         Az API kulcs nevének megadása kötelező.
       </span>
     </div>
@@ -30,16 +30,16 @@
     </label>
     <input
       matInput
-      [formControlName]="'key'"
       autocomplete="off"
       id="key"
       name="key"
       type="text"
       class="input"
-      [class.input--error]="formGroup.controls.key.hasError('invalid')"
+      [(ngModel)]="key"
+      [class.input--error]="!key"
       placeholder="GPI API Kulcs" />
     <div class="error">
-      <span *ngIf="formGroup.controls.key.hasError('invalid')">
+      <span *ngIf="!key">
         Az API kulcs megadása kötelező.
       </span>
     </div>

@@ -41,6 +41,33 @@
 }
 
 .api-key {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+  .api-key__values__checkbox {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 10px;
+    color: $secondaryFontColor;
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      input {
+        margin: 0 6px 0 0;
+      }
+
+      .checkbox-label {
+        margin-top: 2px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
 
   .api-key__container {
     display: flex;
@@ -48,9 +75,7 @@
     justify-content: space-between;
 
     .api-key__values {
-
       .api-key__values__name {
-
       }
 
       .api-key__values__key {
@@ -68,7 +93,6 @@
     }
   }
 }
-
 
 .trash-button {
   &:hover {
@@ -89,3 +113,28 @@
     width: 100%;
   }
 }
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+
+  .link-container {
+    margin-top: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.main-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+

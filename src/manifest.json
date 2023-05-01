@@ -12,6 +12,10 @@
     "storage",
     "scripting"
   ],
+  "host_permissions": [
+    "http://*/",
+    "https://*/"
+  ],
   "web_accessible_resources": [{
     "matches": [ "http://*/*", "https://*/*" ],
     "resources": [

@@ -23,7 +23,6 @@ export class ExtensionHttpInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const appState = this.storageService.getAppState();
-    console.log('http intercepting, authtoken: ' + appState?.authToken ?? '');
     request = request.clone({
       setHeaders: {
         'Authorization': appState?.authToken ?? '',

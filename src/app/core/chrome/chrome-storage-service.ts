@@ -7,18 +7,21 @@ declare const chrome: any;
 @Injectable({ providedIn: 'root' })
 export class ChromeStorageService {
 
-  private static appState: AppState;
+  private static appState?: AppState;
 
   getAppState(): AppState {
-    console.log('appState get: ' + JSON.stringify(ChromeStorageService.appState))
-    return ChromeStorageService.appState;
+    return ChromeStorageService.appState!;
   }
 
-  setAppState(appState: AppState): void {
+  setAppState(appState?: AppState): void {
     ChromeStorageService.appState = appState;
 
+    if (!appState) {
+      chrome.storage.sync.remove("appState", () => {});
+      return;
+    }
+
     chrome.storage.sync.set({ "appState": appState}, () => {
-      console.log('appState set: ' + JSON.stringify(appState))
     });
   }
 

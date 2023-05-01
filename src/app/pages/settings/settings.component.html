@@ -7,16 +7,19 @@
       Beállítások
     </div>
     <span class="close-button-container">
-      <svg-icon svgClass="svg-button" [applyClass]="true" src="/assets/icons/close-outline.svg" [svgStyle]="{ 'width.px': 24 }" (click)="close()"></svg-icon>
+      <svg-icon
+        svgClass="svg-button"
+        [applyClass]="true"
+        src="/assets/icons/close-outline.svg"
+        [svgStyle]="{ 'width.px': 24 }"
+        (click)="close()">
+      </svg-icon>
     </span>
   </div>
 </div>
 
-
 <div class="main-content">
-
   <div class="content-box">
-
     <div class="content-box__header">
       <div>
         GPT Api kulcsok
@@ -38,20 +41,58 @@
             </div>
           </div>
           <div class="api-key__buttons">
-            <svg-icon svgClass="svg-button" [applyClass]="true" src="/assets/icons/edit-2-outline.svg" [svgStyle]="{ 'width.px': 18 }" (click)="onEdit(key.key, key.keyName)"></svg-icon>
-            <svg-icon svgClass="svg-button trash-button" [applyClass]="true" src="/assets/icons/archive-outline.svg" [svgStyle]="{ 'width.px': 18 }" (click)="onDeleteConfirm(key.keyName, key.key)"></svg-icon>
+            <svg-icon
+              svgClass="svg-button"
+              [applyClass]="true"
+              src="/assets/icons/edit-2-outline.svg"
+              [svgStyle]="{ 'width.px': 18 }"
+              (click)="onEdit(key.key, key.keyName)">
+            </svg-icon>
+
+            <svg-icon
+              svgClass="svg-button trash-button"
+              [applyClass]="true"
+              src="/assets/icons/archive-outline.svg"
+              [svgStyle]="{ 'width.px': 18 }"
+              (click)="onDeleteConfirm(key.keyName, key.key)">
+            </svg-icon>
           </div>
         </div>
-
+        <div class="api-key__values__checkbox">
+          <div class="checkbox-container">
+            <input type="checkbox" [checked]="key.isActive" (change)="setActive(key)"/>
+            <span class="checkbox-label" *ngIf="key.isActive; else inactive">
+              Aktív
+            </span>
+            <ng-template #inactive>
+              <span class="checkbox-label">
+                Inaktív
+              </span>
+            </ng-template>
+          </div>
+        </div>
         <div *ngIf="i !== apiKeys.length - 1" class="separator"></div>
       </div>
     </ng-template>
 
     <div class="button-container">
       <button class="button" (click)="onEdit()">
-        <svg-icon svgClass="svg-button plus-button" [applyClass]="true" src="/assets/icons/plus-outline.svg" [svgStyle]="{ 'width.px': 22 }"></svg-icon>
+        <svg-icon
+          svgClass="svg-button plus-button"
+          [applyClass]="true"
+          src="/assets/icons/plus-outline.svg"
+          [svgStyle]="{ 'width.px': 22 }">
+        </svg-icon>
         API kulcs hozzáadása
       </button>
+    </div>
+  </div>
+
+  <div class="button-container">
+    <div class="link-container">
+      <span class="link" (click)="logout()">
+        Kijelentkezés
+      </span>
     </div>
   </div>
 </div>

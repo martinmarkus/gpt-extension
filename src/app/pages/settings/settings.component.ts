@@ -1,7 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { take, takeUntil } from 'rxjs';
 import { ApiKeyRequestDTO, GPTClient, ResponseType } from 'src/app/core/api/gpt-server.generated';
 import { ApiKey } from 'src/app/core/chrome/api-key.interface';
+import { ChromeStorageService } from 'src/app/core/chrome/chrome-storage-service';
 import { GeneralModalService } from 'src/app/core/modal/general-modal.service';
 import { subscriptionHolder } from 'src/app/core/utils/subscription-holder';
 import { ApiKeyPopupComponent } from 'src/app/shared/api-key-popup/api-key-popup.component';
@@ -12,15 +14,19 @@ import { ConfirmPopupComponent } from 'src/app/shared/confirm-popup/confirm-popu
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsComponent extends subscriptionHolder() implements OnInit, OnDestroy {
   apiKeys: ApiKey[] = [];
 
   constructor(
+    private readonly cdr: ChangeDetectorRef,
+    private readonly router: Router,
+    private readonly client: GPTClient,
+    private readonly storageService: ChromeStorageService,
     private readonly confirmModalService: GeneralModalService<ConfirmPopupComponent>,
-    private readonly apiKeyModalService: GeneralModalService<ApiKeyPopupComponent>,
-    private readonly client: GPTClient) {
+    private readonly apiKeyModalService: GeneralModalService<ApiKeyPopupComponent>) {
     super();
   }
 
@@ -34,16 +40,24 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
 
   loadKeys(): void {
     this.client.getOwnApiKeys()
-    .pipe(take(1), takeUntil(this.destroyed$))
-    .subscribe(response => {
-      this.apiKeys = response.keys.map(x => {
-        return {
-          key: x?.key ?? '',
-          keyName: x?.keyName ?? '',
-          isActive: x?.isActive ?? false
-        } as ApiKey;
-      })
-    });
+      .pipe(take(1), takeUntil(this.destroyed$))
+      .subscribe(response => {
+        this.apiKeys = response.keys.map(x => {
+          return {
+            key: x?.key ?? '',
+            keyName: x?.keyName ?? '',
+            isActive: x?.isActive ?? false
+          } as ApiKey;
+        });
+
+        const state = this.storageService.getAppState();
+
+        state.apiKeys = this.apiKeys;
+
+        this.storageService.setAppState(state);
+
+        this.cdr.detectChanges();
+      });
   }
 
   close(): void {
@@ -56,10 +70,15 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
 
   private openApiKeyPopup(key?: string, name?: string): void {
     this.apiKeyModalService.open(ApiKeyPopupComponent, {
-      apiKey: key ?? '',
-      name: name ?? '',
-      isAdding: !!key
-    } as ApiKeyPopupModel)
+        apiKey: key ?? '',
+        name: name ?? '',
+        isAdding: !!key
+      } as ApiKeyPopupModel)
+      .afterClosed()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((keys) => {
+        this.loadKeys();
+      });
   }
 
   onDeleteConfirm(apiKeyName: string, key: string): void {
@@ -97,4 +116,19 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
       });
   }
 
+  logout(): void {
+    this.storageService.setAppState(undefined);
+    this.router.navigate(['']);
+  }
+
+  setActive(apiKey: ApiKey): void {
+    this.client.setActiveApiKey(new ApiKeyRequestDTO({
+        apiKey: apiKey?.key ?? '',
+        apiKeyName: apiKey?.keyName ?? ''
+      }))
+      .pipe(takeUntil(this.destroyed$), take(1))
+      .subscribe(() => {
+        this.loadKeys();
+      });
+  }
 }

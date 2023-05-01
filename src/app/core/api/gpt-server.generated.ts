@@ -777,6 +777,7 @@ export class ApiKeyResponseDTO implements IApiKeyResponseDTO {
     isActive!: boolean;
     keyName!: string;
     key!: string;
+    creationDate!: Date;
 
     constructor(data?: IApiKeyResponseDTO) {
         if (data) {
@@ -792,6 +793,7 @@ export class ApiKeyResponseDTO implements IApiKeyResponseDTO {
             this.isActive = _data["isActive"];
             this.keyName = _data["keyName"];
             this.key = _data["key"];
+            this.creationDate = _data["creationDate"] ? new Date(_data["creationDate"].toString()) : <any>undefined;
         }
     }
 
@@ -807,6 +809,7 @@ export class ApiKeyResponseDTO implements IApiKeyResponseDTO {
         data["isActive"] = this.isActive;
         data["keyName"] = this.keyName;
         data["key"] = this.key;
+        data["creationDate"] = this.creationDate ? this.creationDate.toISOString() : <any>undefined;
         return data;
     }
 }
@@ -815,6 +818,7 @@ export interface IApiKeyResponseDTO {
     isActive: boolean;
     keyName: string;
     key: string;
+    creationDate: Date;
 }
 
 export class ApiKeyRequestDTO implements IApiKeyRequestDTO {
