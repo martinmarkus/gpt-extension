@@ -9,39 +9,33 @@
       API kulcs név
     </label>
     <input
-      matInput
       [(ngModel)]="name"
       autocomplete="off"
       id="name"
       name="name"
       type="text"
       class="input"
-      placeholder="Tetszőleges név" />
-    <div class="error">
-      <span *ngIf="!name">
-        Az API kulcs nevének megadása kötelező.
-      </span>
+      placeholder="Tetszőleges név"/>
+    <div class="error-msg" *ngIf="showNameError">
+      Az API kulcs nevének megadása kötelező.
     </div>
   </div>
 
   <div class="api__form__field">
-    <label for="password">
+    <label for="key">
       API kulcs érték
     </label>
     <input
-      matInput
+      #keyInput
       autocomplete="off"
       id="key"
       name="key"
       type="text"
       class="input"
       [(ngModel)]="key"
-      [class.input--error]="!key"
       placeholder="GPI API Kulcs" />
-    <div class="error">
-      <span *ngIf="!key">
-        Az API kulcs megadása kötelező.
-      </span>
+    <div class="error-msg" *ngIf="showKeyError">
+      Az API kulcs megadása kötelező.
     </div>
   </div>
 </form>

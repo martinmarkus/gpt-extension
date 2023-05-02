@@ -346,8 +346,8 @@ export class GPTClient {
         return _observableOf(null as any);
     }
 
-    addApiKey(dto: ApiKeyRequestDTO): Observable<ApiKeysResponseDTO> {
-        let url_ = this.baseUrl + "/GPT/AddApiKey";
+    addOrUpdateActiveApiKey(dto: ApiKeyRequestDTO): Observable<ApiKeysResponseDTO> {
+        let url_ = this.baseUrl + "/GPT/AddOrUpdateActiveApiKey";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(dto);
@@ -363,11 +363,11 @@ export class GPTClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processAddApiKey(response_);
+            return this.processAddOrUpdateActiveApiKey(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processAddApiKey(response_ as any);
+                    return this.processAddOrUpdateActiveApiKey(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<ApiKeysResponseDTO>;
                 }
@@ -376,7 +376,7 @@ export class GPTClient {
         }));
     }
 
-    protected processAddApiKey(response: HttpResponseBase): Observable<ApiKeysResponseDTO> {
+    protected processAddOrUpdateActiveApiKey(response: HttpResponseBase): Observable<ApiKeysResponseDTO> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -774,6 +774,7 @@ export interface IApiKeysResponseDTO extends IBaseResponseDTO {
 }
 
 export class ApiKeyResponseDTO implements IApiKeyResponseDTO {
+    id!: string;
     isActive!: boolean;
     keyName!: string;
     key!: string;
@@ -790,6 +791,7 @@ export class ApiKeyResponseDTO implements IApiKeyResponseDTO {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.isActive = _data["isActive"];
             this.keyName = _data["keyName"];
             this.key = _data["key"];
@@ -806,6 +808,7 @@ export class ApiKeyResponseDTO implements IApiKeyResponseDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["isActive"] = this.isActive;
         data["keyName"] = this.keyName;
         data["key"] = this.key;
@@ -815,6 +818,7 @@ export class ApiKeyResponseDTO implements IApiKeyResponseDTO {
 }
 
 export interface IApiKeyResponseDTO {
+    id: string;
     isActive: boolean;
     keyName: string;
     key: string;
@@ -822,6 +826,7 @@ export interface IApiKeyResponseDTO {
 }
 
 export class ApiKeyRequestDTO implements IApiKeyRequestDTO {
+    id!: string;
     apiKey!: string;
     apiKeyName!: string;
 
@@ -836,6 +841,7 @@ export class ApiKeyRequestDTO implements IApiKeyRequestDTO {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.apiKey = _data["apiKey"];
             this.apiKeyName = _data["apiKeyName"];
         }
@@ -850,6 +856,7 @@ export class ApiKeyRequestDTO implements IApiKeyRequestDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["apiKey"] = this.apiKey;
         data["apiKeyName"] = this.apiKeyName;
         return data;
@@ -857,6 +864,7 @@ export class ApiKeyRequestDTO implements IApiKeyRequestDTO {
 }
 
 export interface IApiKeyRequestDTO {
+    id: string;
     apiKey: string;
     apiKeyName: string;
 }

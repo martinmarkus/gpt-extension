@@ -44,6 +44,7 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
       .subscribe(response => {
         this.apiKeys = response.keys.map(x => {
           return {
+            id: x?.id ?? '',
             key: x?.key ?? '',
             keyName: x?.keyName ?? '',
             isActive: x?.isActive ?? false
@@ -81,7 +82,7 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
       });
   }
 
-  onDeleteConfirm(apiKeyName: string, key: string): void {
+  onDeleteConfirm(apiKeyName: string, key: string, id: string): void {
     this.confirmModalService.open(ConfirmPopupComponent, {
       question: `Biztosan törölni szeretné a(z) '${apiKeyName}' API kulcsot?`,
       confirmText: 'Törlés',
@@ -90,19 +91,18 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
       .afterClosed()
       .pipe(takeUntil(this.destroyed$))
       .subscribe((confirmed) => {
-
         if (confirmed) {
-          this.deleteKey(apiKeyName, key);
+          this.deleteKey(apiKeyName, key, id);
         }
-        this.confirmModalService.close();
         this.loadKeys();
       });
   }
 
-  deleteKey(name: string, key: string): void {
+  deleteKey(name: string, key: string, id: string): void {
     this.client.removeApiKey(new ApiKeyRequestDTO({
         apiKey: key ?? '',
-        apiKeyName: name ?? ''
+        apiKeyName: name ?? '',
+        id: id
       }))
       .pipe(take(1), takeUntil(this.destroyed$))
       .subscribe(response => {
@@ -124,7 +124,8 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
   setActive(apiKey: ApiKey): void {
     this.client.setActiveApiKey(new ApiKeyRequestDTO({
         apiKey: apiKey?.key ?? '',
-        apiKeyName: apiKey?.keyName ?? ''
+        apiKeyName: apiKey?.keyName ?? '',
+        id: apiKey?.id ?? ''
       }))
       .pipe(takeUntil(this.destroyed$), take(1))
       .subscribe(() => {
