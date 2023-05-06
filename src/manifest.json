@@ -27,7 +27,10 @@
     "resources": [
       "doc-ext/scripts/content_script.js",
       "doc-ext/templates/content_template.html",
-      "doc-ext/styles/content_style.css"
+      "doc-ext/styles/content_style.css",
+      "doc-ext/assets/*",
+      "doc-ext/assets/robot.png"
+
     ]
   }],
   "content_scripts": [{
