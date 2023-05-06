@@ -76,10 +76,19 @@
 
     .api-key__values {
       .api-key__values__name {
+        max-width: 240px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .api-key__values__key {
         color: $secondaryFontColor;
+
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 

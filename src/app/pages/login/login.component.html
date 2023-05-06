@@ -56,7 +56,11 @@
       <span *ngIf="formGroup.controls.password.hasError('invalid')">
         Az jelszó megadása kötelező.
       </span>
+      <span *ngIf="invalidLoginMessage !== ''">
+        {{ invalidLoginMessage }}
+      </span>
     </div>
+
   </div>
 
   <div class="button-container">

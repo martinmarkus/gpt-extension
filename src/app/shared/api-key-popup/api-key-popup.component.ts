@@ -28,7 +28,10 @@ export class ApiKeyPopupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    if (this!.model.isAdding) {
+      this.key = this.model.apiKey;
+      this.name = this.model.name;
+    }
   }
 
   close(): void {
@@ -61,8 +64,8 @@ export class ApiKeyPopupComponent implements OnInit {
     }
 
     this.client.addOrUpdateActiveApiKey(new ApiKeyRequestDTO({
-        apiKey: this.name ?? '',
-        apiKeyName: this.key ?? '',
+        apiKey: this.key ?? '',
+        apiKeyName: this.name ?? '',
         id: this.model.id
       }))
       .pipe(take(1))

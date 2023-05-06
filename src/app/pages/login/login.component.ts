@@ -1,7 +1,7 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { finalize, take, takeUntil } from 'rxjs';
+import { EMPTY, catchError, finalize, take, takeUntil } from 'rxjs';
 import { AuthenticationClient, LoginRequestDTO } from 'src/app/core/api/gpt-server.generated';
 import { AppState } from 'src/app/core/chrome/app-state.interface';
 import { ChromeStorageService } from 'src/app/core/chrome/chrome-storage-service';
@@ -23,7 +23,7 @@ export class LoginComponent extends subscriptionHolder() implements OnInit, OnDe
   });
 
   registerUrl = ExternalUrlConstants.AiChatMaster;
-
+  invalidLoginMessage: string = '';
 
   constructor(
     private readonly appStateService: ChromeStorageService,
@@ -53,6 +53,9 @@ export class LoginComponent extends subscriptionHolder() implements OnInit, OnDe
   }
 
   login(): void {
+    this.formGroup.controls.email.setValue('teszt@aichatmester.hu');
+    this.formGroup.controls.password.setValue('Alma12345');
+
     let hasError = false;
     if (!this.formGroup.controls.email.valid) {
       this.formGroup.controls.email.setErrors({'invalid': true});
@@ -70,7 +73,7 @@ export class LoginComponent extends subscriptionHolder() implements OnInit, OnDe
 
     this.formGroup.controls.email.setErrors(null);
     this.formGroup.controls.password.setErrors(null);
-
+    this.invalidLoginMessage = '';
     this.spinner.show();
     this.authClient.login(new LoginRequestDTO({
         email: this.formGroup.controls.email.value?.toString() ?? '',
@@ -78,8 +81,16 @@ export class LoginComponent extends subscriptionHolder() implements OnInit, OnDe
       }))
       .pipe(takeUntil(this.destroyed$), take(1), finalize(() => {
         this.spinner.hide();
+      }),
+      catchError((error) => {
+        this.invalidLoginMessage = 'Nem található felhasználó a megadott belépési adatokkal.';
+        return EMPTY;
       }))
       .subscribe(response => {
+        if (!response || !response.authToken) {
+          this.invalidLoginMessage = 'Nem található felhasználó a megadott belépési adatokkal.';
+          return;
+        }
         // INFO: Set app state
         let appState = this.appStateService.getAppState();
 
