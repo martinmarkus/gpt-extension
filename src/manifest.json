@@ -30,7 +30,6 @@
       "doc-ext/styles/content_style.css",
       "doc-ext/assets/*",
       "doc-ext/assets/robot.png"
-
     ]
   }],
   "content_scripts": [{

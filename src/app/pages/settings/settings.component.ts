@@ -20,6 +20,12 @@ import { ConfirmPopupComponent } from 'src/app/shared/confirm-popup/confirm-popu
 export class SettingsComponent extends subscriptionHolder() implements OnInit, OnDestroy {
   apiKeys: ApiKey[] = [];
 
+  deleteConfirmModel = {
+    question: `Biztosan törölni szeretné az API kulcsot?`,
+    confirmText: 'Törlés',
+    cancelText: 'Mégsem'
+  } as ConfirmPopupModel;
+
   constructor(
     private readonly cdr: ChangeDetectorRef,
     private readonly router: Router,
@@ -78,19 +84,17 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
       .afterClosed()
       .pipe(takeUntil(this.destroyed$))
       .subscribe((keys) => {
+        this.apiKeyModalService.close();
         this.loadKeys();
       });
   }
 
   onDeleteConfirm(apiKeyName: string, key: string, id: string): void {
-    this.confirmModalService.open(ConfirmPopupComponent, {
-      question: `Biztosan törölni szeretné a(z) '${apiKeyName}' API kulcsot?`,
-      confirmText: 'Törlés',
-      cancelText: 'Mégsem'
-    } as ConfirmPopupModel)
+    this.confirmModalService.open(ConfirmPopupComponent, this.deleteConfirmModel)
       .afterClosed()
       .pipe(takeUntil(this.destroyed$))
       .subscribe((confirmed) => {
+        this.confirmModalService.close();
         if (confirmed) {
           this.deleteKey(apiKeyName, key, id);
         }

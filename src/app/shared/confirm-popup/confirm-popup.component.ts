@@ -1,19 +1,21 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmPopupModel } from './confirm-popup-model';
 
 @Component({
   selector: 'app-confirm-popup',
   templateUrl: './confirm-popup.component.html',
-  styleUrls: ['./confirm-popup.component.scss']
+  styleUrls: ['./confirm-popup.component.scss'],
 })
-export class ConfirmPopupComponent {
+export class ConfirmPopupComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public readonly model: ConfirmPopupModel
+    @Inject(MAT_DIALOG_DATA) public readonly model: ConfirmPopupModel,
   ) {
+  }
 
+  ngOnInit(): void {
   }
 
   close(): void {

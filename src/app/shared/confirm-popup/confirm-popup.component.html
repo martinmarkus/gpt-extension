@@ -2,7 +2,7 @@
 
   <div class="header">
     <div>
-      {{ model.question }}
+      Biztosan törölni szeretné az API kulcsot?
     </div>
     <div class="svg-container">
       <svg-icon svgClass="svg-button" [applyClass]="true" src="/assets/icons/close-outline.svg" [svgStyle]="{ 'width.px': 24 }" (click)="close()"></svg-icon>
@@ -10,7 +10,7 @@
   </div>
 
   <div class="content">
-    <button class="button" (click)="confirm()">{{model.confirmText}}</button>
-    <button class="button button--secondary" (click)="cancel()">{{model.cancelText}}</button>
+    <button class="button" (click)="confirm()">Törlés</button>
+    <button class="button button--secondary" (click)="cancel()">Mégsem</button>
   </div>
 </div>

@@ -10,11 +10,13 @@ import { ModalModule } from 'src/app/core/modal/modal.module';
 import { ConfirmPopupModule } from 'src/app/shared/confirm-popup/confirm-popup.module';
 import { ApiKeyPopupModule } from 'src/app/shared/api-key-popup/api-key-popup.module';
 import { ApiKeyPopupComponent } from 'src/app/shared/api-key-popup/api-key-popup.component';
+import { ConfirmPopupComponent } from 'src/app/shared/confirm-popup/confirm-popup.component';
 
 @NgModule({
   declarations: [
     SettingsComponent,
-    ApiKeyPopupComponent
+    ApiKeyPopupComponent,
+    ConfirmPopupComponent
   ],
   imports: [
     SettingsRoutingModule,
