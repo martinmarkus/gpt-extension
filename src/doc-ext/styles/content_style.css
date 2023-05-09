@@ -26,7 +26,6 @@
   background: #fff;
   border-radius: 6px;
   border: 1px solid #c7c7c7;
-  padding: 10px;
   margin: 10px;
   display: flex;
   flex-direction: column;
@@ -44,10 +43,11 @@
 
 .doc-ext-input {
   padding: 10px;
-  padding-top: 0;
+  padding-top: 8px;
   background: #fff;
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 #chat-input-A8A662C82DA3 {
@@ -116,14 +116,14 @@
   justify-content: flex-start;
   align-items: flex-end;
 
-  color: #dbdbdb;
+  color: #adadad;
   font-size: 11px;
   font-weight: 500;
   font-family: "Poppins", sans-serif;
 }
 
 .doc-ext-footer a {
-  color: #19D3F1;
+  color: #7fd9e7;
 }
 
 #doc-ext-header-A8A662C82DA3 {
@@ -135,8 +135,82 @@
   display: flex;
   align-items: center;
 
-  color: #68ebff;
   font-size: 14px;
   font-weight: 500;
   font-family: "Poppins", sans-serif;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.doc-ext-chat__messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px 0;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.doc-ext-response {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.doc-ext-response__content {
+  border-radius: 6px;
+  background-color: #82eeff;
+  padding: 8px;
+  color: #474747;
+  margin-right: 8px;
+}
+
+.doc-ext-request {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 8px;
+}
+
+.doc-ext-request__content {
+  border-radius: 6px;
+  background-color: #e2e2e2;
+  padding: 8px;
+  color: #474747;
+  margin-left: 8px;
+}
+
+
+/* width */
+.body-A8A662C82DA3 {
+  ::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 20px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 20px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c7c7c7;
+    border-radius: 20px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c7c7c7;
+    border-radius: 20px;
+  }
+
+}
+
+.doc-ext-gtp-icon-A8A662C82DA3 {
+  margin-right: 6px;
+  height: 32px;
+}
+
+.doc-ext-person-A8A662C82DA3 {
+  margin-left: 6px;
+  height: 32px;
 }
