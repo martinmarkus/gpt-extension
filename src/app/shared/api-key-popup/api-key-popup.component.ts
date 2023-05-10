@@ -66,7 +66,7 @@ export class ApiKeyPopupComponent implements OnInit {
     this.client.addOrUpdateActiveApiKey(new ApiKeyRequestDTO({
         apiKey: this.key ?? '',
         apiKeyName: this.name ?? '',
-        id: this.model.id
+        id: this.model?.id ?? ''
       }))
       .pipe(take(1))
       .subscribe(() => {

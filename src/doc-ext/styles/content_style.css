@@ -3,7 +3,7 @@
   height: 400px;
   z-index: 1000;
 
-  display: grid;
+  display: none;
   grid-template-rows: 1fr 10fr 1fr;
 
   position: fixed;
@@ -29,6 +29,7 @@
   margin: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
 }
 
 .doc-ext-chat__message {
@@ -213,4 +214,18 @@
 .doc-ext-person-A8A662C82DA3 {
   margin-left: 6px;
   height: 32px;
+}
+
+.doc-ext-close-button-A8A662C82DA3 {
+  cursor: pointer;
+}
+
+.doc-ext-empty {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  color: #bbbbbb;
+  height: 105px;
+  display: block;
 }

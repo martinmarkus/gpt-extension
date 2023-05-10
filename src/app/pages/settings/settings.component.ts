@@ -19,6 +19,7 @@ import { ConfirmPopupComponent } from 'src/app/shared/confirm-popup/confirm-popu
 })
 export class SettingsComponent extends subscriptionHolder() implements OnInit, OnDestroy {
   apiKeys: ApiKey[] = [];
+  showChat: boolean = false;
 
   deleteConfirmModel = {
     question: `Biztosan törölni szeretné az API kulcsot?`,
@@ -71,15 +72,17 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
     window.close();
   }
 
-  onEdit(apiKey?: string, name?: string): void {
-    this.openApiKeyPopup(apiKey, name);
+  onEdit(apiKey?: string, name?: string, id?: string): void {
+    console.log('test: ' + id);
+    this.openApiKeyPopup(apiKey, name, id);
   }
 
-  private openApiKeyPopup(key?: string, name?: string): void {
+  private openApiKeyPopup(key?: string, name?: string, id?: string): void {
     this.apiKeyModalService.open(ApiKeyPopupComponent, {
         apiKey: key ?? '',
         name: name ?? '',
-        isAdding: !!key
+        isAdding: !!key,
+        id: id ?? ''
       } as ApiKeyPopupModel)
       .afterClosed()
       .pipe(takeUntil(this.destroyed$))
@@ -123,6 +126,7 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
   logout(): void {
     this.storageService.setAppState(undefined);
     this.router.navigate(['']);
+    this.hideChat();
   }
 
   setActive(apiKey: ApiKey): void {
@@ -135,5 +139,24 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
       .subscribe(() => {
         this.loadKeys();
       });
+  }
+
+  toggleChat(): void {
+    const state = this.storageService.getAppState();
+    state.showChat = !state.showChat ?? false;
+    this.showChat = state.showChat;
+    this.storageService.setAppState(state);
+    this.cdr.detectChanges();
+
+    if (this.showChat) {
+      this.close();
+    }
+  }
+
+  hideChat(): void {
+    const state = this.storageService.getAppState();
+    state.showChat = false;
+    this.storageService.setAppState(state);
+    this.cdr.detectChanges();
   }
 }

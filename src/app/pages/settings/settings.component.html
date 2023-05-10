@@ -18,6 +18,24 @@
   </div>
 </div>
 
+<div class="chat-button-container">
+  <button class="button--chat" (click)="toggleChat()">
+    <svg-icon
+      svgClass="svg-button plus-button"
+      [applyClass]="true"
+      src="/assets/icons/message-square-outline.svg"
+      [svgStyle]="{ 'width.px': 22 }">
+    </svg-icon>
+    <ng-container *ngIf="!showChat; else closeButton">
+      Chat megnyitása
+    </ng-container>
+    <ng-template #closeButton>
+      Chat bezárása
+    </ng-template>
+  </button>
+
+</div>
+
 <div class="main-content">
   <div class="content-box">
     <div class="content-box__header">
@@ -46,7 +64,7 @@
               [applyClass]="true"
               src="/assets/icons/edit-2-outline.svg"
               [svgStyle]="{ 'width.px': 18 }"
-              (click)="onEdit(key.key, key.keyName)">
+              (click)="onEdit(key.key, key.keyName, key.id)">
             </svg-icon>
 
             <svg-icon

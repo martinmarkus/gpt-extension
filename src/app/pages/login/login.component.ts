@@ -98,7 +98,8 @@ export class LoginComponent extends subscriptionHolder() implements OnInit, OnDe
           appState = {
             authToken: response?.authToken ?? '',
             apiKeys: [],
-            email: this.formGroup.controls.email.value?.toString() ?? ''
+            email: this.formGroup.controls.email.value?.toString() ?? '',
+            showChat: false
           } as AppState;
         }
 

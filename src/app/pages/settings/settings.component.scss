@@ -117,6 +117,7 @@
   display: flex;
   width: 100%;
   margin-top: 14px;
+  justify-content: flex-end;
 
   button {
     width: 100%;
@@ -125,14 +126,14 @@
 
 .button-container {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   margin-top: 8px;
+  justify-content: flex-end;
 
   .link-container {
     margin-top: 8px;
     margin-bottom: 12px;
     display: flex;
-    width: 100%;
     justify-content: flex-end;
     cursor: pointer;
     text-decoration: underline;
@@ -147,3 +148,34 @@
   justify-content: space-between;
 }
 
+.chat-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.button--chat {
+  @include disable-select;
+
+  border-radius: 6px;
+  background: $buttonColor;
+  color: $fontColorLight;
+  text-transform: uppercase;
+  font-size: 16px;
+  height: 45px;
+  outline: none;
+  border: none;
+  transition: all 0.2s;
+  font-weight: 500;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+
+  &:hover {
+    cursor: pointer;
+    background: $buttonHoverColor;
+  }
+}

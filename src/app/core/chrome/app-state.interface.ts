@@ -4,4 +4,5 @@ export interface AppState {
   email: string;
   authToken: string;
   apiKeys: ApiKey[];
+  showChat: boolean;
 }
