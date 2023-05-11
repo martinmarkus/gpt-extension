@@ -46,6 +46,7 @@
   padding: 10px;
   padding-top: 8px;
   background: #fff;
+  border: none;
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -151,6 +152,7 @@
   gap: 12px;
   padding: 8px 0;
   overflow-y: auto;
+  overflow-x: hidden;
   max-height: 300px;
 }
 
@@ -228,4 +230,13 @@
   color: #bbbbbb;
   height: 105px;
   display: block;
+}
+
+.doc-ext-error-msg-A8A662C82DA3 {
+  color: rgb(248, 119, 119);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 6px;
+  padding: 0 6px;
 }

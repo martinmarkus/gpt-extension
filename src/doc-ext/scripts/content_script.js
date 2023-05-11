@@ -65,6 +65,8 @@ function initSendSub() {
     if (!!inputHtml && inputHtml !== '') {
       sendGptMessage(inputHtml?.value);
 
+      scrollToChatBottom();
+
       const emptyPlaceholder = document.querySelector('.doc-ext-empty');
       if (!!emptyPlaceholder) {
         emptyPlaceholder.style.display = 'none';
@@ -163,27 +165,37 @@ function sendGptMessage(message) {
       if (!data) {
         return;
       }
+
       // INFO: Append to chat popup
       const message = data?.choices[0]?.message?.content ?? '';
 
       if (!message || message === '') {
         return;
       }
+      try {
+        const responseHtml = `<div class="doc-ext-response">
+          <img class="doc-ext-gtp-icon-A8A662C82DA3"/>
+          <div class="doc-ext-response__content">` + message + `</div>
+        </div>`;
 
-      const responseHtml = `<div class="doc-ext-response">
-        <img class="doc-ext-gtp-icon-A8A662C82DA3"/>
-        <div class="doc-ext-response__content">` + message + `</div>
-      </div>`;
+        const htmlObject = document.createElement('div');
+        htmlObject.innerHTML = responseHtml;
+      } catch (error) {
 
-      const htmlObject = document.createElement('div');
-      htmlObject.innerHTML = responseHtml;
+      }
 
       const chatMessages = document.querySelector('.doc-ext-chat__messages');
       chatMessages.appendChild(htmlObject);
 
       setGptLogo();
+      scrollToChatBottom();
     });
   });
+}
+
+function scrollToChatBottom() {
+  const messageContainer = document.querySelector('.doc-ext-chat__messages');
+  messageContainer.scrollTop = messageContainer.scrollHeight;
 }
 
 function setWidgetState(open) {

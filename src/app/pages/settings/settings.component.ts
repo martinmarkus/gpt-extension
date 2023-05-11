@@ -89,6 +89,7 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
       .subscribe((keys) => {
         this.apiKeyModalService.close();
         this.loadKeys();
+        this.cdr.detectChanges();
       });
   }
 
@@ -102,6 +103,7 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
           this.deleteKey(apiKeyName, key, id);
         }
         this.loadKeys();
+        this.cdr.detectChanges();
       });
   }
 
@@ -120,6 +122,7 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
         }
 
         this.loadKeys();
+        this.cdr.detectChanges();
       });
   }
 
@@ -138,6 +141,7 @@ export class SettingsComponent extends subscriptionHolder() implements OnInit, O
       .pipe(takeUntil(this.destroyed$), take(1))
       .subscribe(() => {
         this.loadKeys();
+        this.cdr.detectChanges();
       });
   }
 

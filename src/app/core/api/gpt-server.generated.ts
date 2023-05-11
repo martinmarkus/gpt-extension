@@ -826,7 +826,7 @@ export interface IApiKeyResponseDTO {
 }
 
 export class ApiKeyRequestDTO implements IApiKeyRequestDTO {
-    id?: string | undefined;
+    id!: string;
     apiKey!: string;
     apiKeyName!: string;
 
@@ -864,7 +864,7 @@ export class ApiKeyRequestDTO implements IApiKeyRequestDTO {
 }
 
 export interface IApiKeyRequestDTO {
-    id?: string | undefined;
+    id: string;
     apiKey: string;
     apiKeyName: string;
 }
